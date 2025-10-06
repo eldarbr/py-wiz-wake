@@ -5,12 +5,16 @@ import typing
 import signal
 import config
 # import debugpy
+import logging
 
 
 CONFIG_PATH: typing.Final[str] = 'wake.conf'
 
 
 async def main() -> None:
+    logging.basicConfig(
+        level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s')
+
     conf = config.read_config(CONFIG_PATH)
     light = Light(mac=conf.bulb_mac, broadcast=conf.broadcast_addr)
 

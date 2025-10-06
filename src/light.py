@@ -1,3 +1,4 @@
+import logging
 import asyncio
 from pywizlight import wizlight, discovery, PilotBuilder
 from effects import EffectCurve
@@ -33,10 +34,16 @@ class Light:
                           curve: EffectCurve,
                           sampling_seconds: float = 15,
                           **pilot_kws) -> None:
+        logging.info(
+                f'show_effect() started for {start_ts}')
+
         if self._bulb is None:
             raise ValueError("the bulb should be discovered first")
 
         if time.time() < start_ts:
+            logging.info(
+                f'show_effect() sleeps until {start_ts} ({
+                    start_ts - time.time()})')
             await asyncio.sleep(start_ts - time.time())
 
             start_brightness = int(curve.get_value(0.0) * max_brightness)

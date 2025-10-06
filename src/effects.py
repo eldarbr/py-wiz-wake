@@ -6,6 +6,10 @@ class EffectCurve(Protocol):
         ...
 
 
-class Linear(EffectCurve):
+class LinearCapped(EffectCurve):
+    """
+    WIZ-light minimum luminance is 10%
+    This linear effect maps x[0;1] to y[0.1;1]
+    """
     def get_value(self, x: float) -> float:
-        return x
+        return 0.9 * x + 0.1
