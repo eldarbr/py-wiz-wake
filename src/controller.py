@@ -52,8 +52,8 @@ class Controller:
             datetime.datetime.today(), today_config.end).timestamp()
 
         logging.info(
-            f'_schedule_today setting effect starting at {start_ts}'
-            f' and finishing at {end_ts}')
+            f'_schedule_today setting effect starting at {time.ctime(start_ts)}'
+            f' and finishing at {time.ctime(end_ts)}')
 
         effect_coro = self._light.show_effect(
             max_brightness=self._config.max_brightness,
@@ -79,7 +79,7 @@ class Controller:
             next_schedule_in = tomorrow_00_05.timestamp() - time.time()
 
             logging.info(
-                f'control() sleeps, next schedule in {next_schedule_in},'
+                f'control() sleeps, next schedule in {next_schedule_in}, '
                 f'{tomorrow_00_05.strftime("%d/%m/%Y, %H:%M:%S")}')
 
             await asyncio.sleep(next_schedule_in)
