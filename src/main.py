@@ -1,22 +1,24 @@
-from controller import Controller
-from light import Light
+from controller import WakeController
+from light import Light, RGBColor
 import asyncio
 import typing
 import signal
 import config
-# import debugpy
 import logging
 
 
-CONFIG_PATH: typing.Final[str] = 'wake.conf'
+CONFIG_PATH: typing.Final[str] = "wake.conf"
 
 
 async def main() -> None:
     logging.basicConfig(
-        level=logging.INFO, format='%(asctime)s - %(levelname)s: %(message)s')
+        level=logging.INFO, format="%(asctime)s - %(levelname)s: %(message)s"
+    )
 
     conf = config.read_config(CONFIG_PATH)
     light = Light(mac=conf.bulb_mac, broadcast=conf.broadcast_addr)
+    # color = KelvinColor(2200)
+    color = RGBColor(r=255, g=99, b=00)
 
     loop = asyncio.get_running_loop()
     stop = loop.create_future()
@@ -25,7 +27,7 @@ async def main() -> None:
 
     try:
         await light.discover()
-        controller = Controller(light, conf)
+        controller = WakeController(light, conf, color)
 
         control_task = asyncio.create_task(controller.control())
 
