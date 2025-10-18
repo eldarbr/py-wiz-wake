@@ -1,13 +1,14 @@
 from controller import WakeController
-from light import Light, RGBColor
+from light import Light, RGBColor, AbstractColor
 import asyncio
-import typing
+from typing import Final
 import signal
 import config
 import logging
 
 
-CONFIG_PATH: typing.Final[str] = "wake.conf"
+CONFIG_PATH: Final[str] = "wake.conf"
+COLOR: Final[AbstractColor] = RGBColor(r=255, g=99, b=00)
 
 
 async def main() -> None:
@@ -18,7 +19,7 @@ async def main() -> None:
     conf = config.read_config(CONFIG_PATH)
     light = Light(mac=conf.bulb_mac, broadcast=conf.broadcast_addr)
     # color = KelvinColor(2200)
-    color = RGBColor(r=255, g=99, b=00)
+    color = COLOR
 
     loop = asyncio.get_running_loop()
     stop = loop.create_future()
