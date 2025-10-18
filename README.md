@@ -1,2 +1,4 @@
 # py-wiz-wake
-Wake up, buddy.
+**Wake up, buddy.**
+
+![light](misc/light.jpg)

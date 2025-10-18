@@ -226,3 +226,25 @@ __marimo__/
 #   Python section end
 #
 ###########################
+
+
+###########################
+#
+#   VSCode section
+#
+
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+# !.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+!*.code-workspace
+
+# Built Visual Studio Code Extensions
+*.vsix
+
+#
+#   VSCode section end
+#
+###########################
