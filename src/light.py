@@ -37,6 +37,11 @@ class Light:
         logging.info(
                 f'show_effect() started for {time.ctime(start_ts)}')
 
+        if time.time() > end_ts:
+            logging.info('show_effect() prematurely ended with the '
+                         f'{time.ctime(start_ts)} routine.')
+            return
+
         if self._bulb is None:
             raise ValueError("the bulb should be discovered first")
 
@@ -65,6 +70,9 @@ class Light:
         await self._bulb.turn_on(PilotBuilder(
                 brightness=end_brightness,
                 **pilot_kws))
+
+        logging.info(f'show_effect() ended with the {time.ctime(start_ts)} '
+                     'routine.')
 
     async def turn_off(self) -> None:
         if self._bulb is None:
